@@ -9,7 +9,7 @@ module.exports = function(app) {
     	friends.createFriend(req, res);
     });
 
-    app.post('/friends/:id/delete', function(req, res){
+    app.delete('/friends/:id/delete', function(req, res){
     	friends.deleteFriend(req, res);
     });
 

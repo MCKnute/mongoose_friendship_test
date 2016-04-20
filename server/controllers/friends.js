@@ -26,6 +26,7 @@ module.exports = (function() {
     deleteFriend: function(req, res) {
       Friend.remove({_id: req.params.id}, function (err, results){
       		if(err) {
+      		  console.log("Try to delete from server-side controller: "+ req.id);
       		  console.log(err);
       		} else {
       		  res.json(results);

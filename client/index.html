@@ -21,8 +21,13 @@
       // note the use of callbacks!
       factory.addFriend = function(info, callback) {
         $http.post('/friends', info).success(function(output){
-          
         });
+      };
+      // delete friend
+      factory.deleteFriend = function(friend_id, callback) {
+          console.log("Try to delete from factory: "+friend_id);
+          $http.delete('/friends/'+friend_id+'/delete').success(function(output){
+          });
       };
       return factory;
     });
@@ -43,6 +48,16 @@
             $scope.friends = data;
           });
       };
+
+       $scope.delete_friend = function(friend_id) {
+          console.log("Try to delete from controller: "+friend_id);
+          FriendFactory.deleteFriend(friend_id, function(){
+              $scope.friends = FriendFactory.getFriends();
+          });
+          FriendFactory.getFriends(function(data){
+            $scope.friends = data;
+          });
+      };
   });
 
   </script>
@@ -58,10 +73,8 @@
   	<ul>
     <!-- here is where we are going to display friends -->
    	 	<li ng-repeat="friend in friends | filter: filter_name">
-      {{friend.name}}, {{friend.age}}, {{friend._id}}
-        <form method="POST" style="text-align: center; display: inline-block" action="{{'/friends/'+friend._id+'/delete'}}">
-            <button type="submit">&#10007; Delete Friend</button>
-        </form>
+      {{friend.name}}, {{friend.age}}
+            <button type="submit" ng-click="delete_friend(friend._id)">&#10007; Delete Friend</button>
     	</li>
   	</ul>
 
