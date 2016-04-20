@@ -21,6 +21,17 @@ module.exports = (function() {
           res.json(results);
         }
       });
-    }
+    },
+
+    deleteFriend: function(req, res) {
+      Friend.remove({_id: req.params.id}, function (err, results){
+      		if(err) {
+      		  console.log(err);
+      		} else {
+      		  res.json(results);
+      		}
+	    });
+    },
+
   };
 })();

@@ -3,7 +3,7 @@
   <title>Friends App Demo</title>
 
   <link rel="stylesheet" type="text/css" href="/static/styles.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
   <script>
 
   	var friends_app = angular.module('friends_app', []);
@@ -52,12 +52,16 @@
 
   <div class="wrapper" ng-controller="FriendsController">
 
+    <h2>View Friends</h2>
   	<input type="text" ng-model="filter_name" placeholder="filter"/>
   	{{filter_name}}
   	<ul>
     <!-- here is where we are going to display friends -->
    	 	<li ng-repeat="friend in friends | filter: filter_name">
-      {{friend.name}}, {{friend.age}}
+      {{friend.name}}, {{friend.age}}, {{friend._id}}
+        <form method="POST" style="text-align: center; display: inline-block" action="{{'/friends/'+friend._id+'/delete'}}">
+            <button type="submit">&#10007; Delete Friend</button>
+        </form>
     	</li>
   	</ul>
 
